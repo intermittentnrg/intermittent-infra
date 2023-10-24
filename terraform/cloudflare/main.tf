@@ -17,3 +17,11 @@ resource "cloudflare_record" "intermittent" {
   proxied = true
   #ttl     = 3600
 }
+
+# resource "cloudflare_zone_settings_override" "intermittent" {
+#   zone_id = cloudflare_zone.intermittent.id
+#   settings {
+#     cache_level = "basic"
+#     browser_cache_ttl = 3600
+#   }
+# }
