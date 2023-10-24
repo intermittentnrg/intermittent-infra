@@ -27,6 +27,7 @@ export default {
         // Hash the request body to use it as a part of the cache key
         const hash = await sha256(body);
         const cacheUrl = new URL(request.url);
+        cacheUrl.searchParams.delete("requestId");
         // Store the URL in cache by prepending the body's hash
         cacheUrl.pathname = "/posts" + cacheUrl.pathname + hash;
         // Convert to a GET to be able to cache
