@@ -12,17 +12,17 @@ export default {
     }
     try {
       if (request.method.toUpperCase() === "POST") {
-	// increase caching
-	const bodyJSON = JSON.parse(await request.clone().text());
-	bodyJSON.from = Math.floor(bodyJSON.from/3600000)*3600000;
-	bodyJSON.to = Math.floor(bodyJSON.to/3600000)*3600000;
-	if(bodyJSON.range) {
-	  bodyJSON.range.from = null;
-	  bodyJSON.range.to = null;
-	}
-	//console.log(bodyJSON.from);
-	//console.log(bodyJSON.to);
-	const body = JSON.stringify(bodyJSON);
+        // increase caching
+        const bodyJSON = JSON.parse(await request.clone().text());
+        bodyJSON.from = Math.floor(bodyJSON.from/3600000)*3600000;
+        bodyJSON.to = Math.floor(bodyJSON.to/3600000)*3600000;
+        if(bodyJSON.range) {
+          bodyJSON.range.from = null;
+          bodyJSON.range.to = null;
+        }
+        //console.log(bodyJSON.from);
+        //console.log(bodyJSON.to);
+        const body = JSON.stringify(bodyJSON);
 
         // Hash the request body to use it as a part of the cache key
         const hash = await sha256(body);
