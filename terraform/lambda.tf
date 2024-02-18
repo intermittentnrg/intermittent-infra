@@ -7,6 +7,17 @@ module "aeso" {
   ]
 }
 
+module "taipower" {
+  source = "./modules/harvester"
+  name = "taipower"
+  schedule_expression = "rate(10 minutes)"
+  custom_role_policy_arns = [
+    aws_iam_policy.lambda_logging.arn,
+  ]
+  providers = {
+    aws = aws.hongkong
+  }
+}
 
 data "aws_iam_policy_document" "lambda_logging" {
   statement {

@@ -66,6 +66,7 @@ module Aeso
     end
   end
 end
+
 def handler(event:, context:)
   a = Aeso::SupplyDemand.new
   a.fetch

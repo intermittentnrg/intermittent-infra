@@ -23,6 +23,7 @@ GEM
       faraday-net_http (>= 2.0, < 3.1)
       ruby2_keywords (>= 0.0.4)
     faraday-net_http (3.0.2)
+    fast_jsonparser (0.6.0)
     fastest-csv (0.0.4)
     jmespath (1.6.2)
     method_source (1.0.0)
@@ -38,6 +39,7 @@ PLATFORMS
 DEPENDENCIES
   aws-sdk-dynamodb
   faraday
+  fast_jsonparser
   fastest-csv
   ox
   pry
