@@ -11,32 +11,12 @@ resource "aws_scheduler_schedule" "aeso_scheduler" {
 
   target {
     arn      = aws_lambda_function.aeso.arn
-    role_arn = aws_iam_role.aeso_scheduler.arn
+    role_arn = module.aeso_scheduler_iam.iam_role_arn
     retry_policy {
       maximum_retry_attempts = 0
     }
   }
 }
-
-
-data "aws_iam_policy_document" "scheduler_assume_role" {
-  statement {
-    effect = "Allow"
-
-    principals {
-      type        = "Service"
-      identifiers = ["scheduler.amazonaws.com"]
-    }
-
-    actions = ["sts:AssumeRole"]
-  }
-}
-
-resource "aws_iam_role" "aeso_scheduler" {
-  name = "aeso_scheduler"
-  assume_role_policy = data.aws_iam_policy_document.scheduler_assume_role.json
-}
-
 
 
 data "aws_iam_policy_document" "aeso_scheduler" {
@@ -53,7 +33,6 @@ data "aws_iam_policy_document" "aeso_scheduler" {
     ]
   }
 }
-
 resource "aws_iam_policy" "aeso_scheduler" {
   name        = "aeso_scheduler"
   path        = "/"
@@ -61,7 +40,16 @@ resource "aws_iam_policy" "aeso_scheduler" {
   policy      = data.aws_iam_policy_document.aeso_scheduler.json
 }
 
-resource "aws_iam_role_policy_attachment" "aeso_scheduler" {
-  role       = aws_iam_role.aeso_scheduler.name
-  policy_arn = aws_iam_policy.aeso_scheduler.arn
+
+module "aeso_scheduler_iam" {
+  source  = "terraform-aws-modules/iam/aws//modules/iam-assumable-role"
+
+  create_role = true
+  role_name         = "aeso_scheduler"
+  role_requires_mfa = false
+  trusted_role_services = ["scheduler.amazonaws.com"]
+  custom_role_policy_arns = [
+    aws_iam_policy.aeso_scheduler.arn,
+  ]
+  trusted_role_actions = ["sts:AssumeRole"]
 }
