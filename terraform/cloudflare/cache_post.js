@@ -42,7 +42,9 @@ export default {
         // Otherwise, fetch response to POST request from origin
         if (!response) {
           response = await fetch(request);
-          ctx.waitUntil(cache.put(cacheKey, response.clone()));
+          if(response.ok) {
+            ctx.waitUntil(cache.put(cacheKey, response.clone()));
+          }
         }
         return response;
       }
