@@ -19,6 +19,19 @@ module "taipower" {
   }
 }
 
+
+module "orn2" {
+  source = "./modules/harvester-s3"
+  name = "orn"
+  schedule_expression = "rate(1 minute)"
+  custom_role_policy_arns = [
+    aws_iam_policy.lambda_logging.arn,
+  ]
+  providers = {
+    aws = aws.brazil
+  }
+}
+
 data "aws_iam_policy_document" "lambda_logging" {
   statement {
     effect = "Allow"
