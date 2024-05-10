@@ -7,6 +7,19 @@ module "aeso" {
   ]
 }
 
+module "aeso_sns_sqs" {
+  source              = "./modules/harvester-sns-sqs"
+  name                = "aeso-sns-sqs"
+  schedule_expression = "rate(1 minute)"
+  sqs_queue_names = [
+    "github"
+  ]
+  custom_role_policy_arns = [
+    aws_iam_policy.lambda_logging.arn,
+  ]
+  github_token = var.github_token
+}
+
 module "taipower" {
   source = "./modules/harvester"
   name = "taipower"
@@ -17,6 +30,23 @@ module "taipower" {
   providers = {
     aws = aws.hongkong
   }
+}
+
+
+module "taipower_sns_sqs" {
+  source = "./modules/harvester-sns-sqs"
+  name = "taipower-sns-sqs"
+  schedule_expression = "rate(10 minutes)"
+  custom_role_policy_arns = [
+    aws_iam_policy.lambda_logging.arn,
+  ]
+  sqs_queue_names = [
+    "github"
+  ]
+  providers = {
+    aws = aws.hongkong
+  }
+  github_token = var.github_token
 }
 
 
