@@ -32,6 +32,24 @@ module "orn2" {
   }
 }
 
+
+module "ons_sns_sqs" {
+  source = "./modules/harvester-sns-sqs"
+  name = "ons-sns-sqs"
+  schedule_expression = "rate(1 minute)"
+  custom_role_policy_arns = [
+    aws_iam_policy.lambda_logging.arn,
+  ]
+  sqs_queue_names = [
+    "github",
+    "local",
+  ]
+  providers = {
+    aws = aws.brazil
+  }
+  github_token = var.github_token
+}
+
 data "aws_iam_policy_document" "lambda_logging" {
   statement {
     effect = "Allow"
