@@ -12,7 +12,8 @@ module "aeso_sns_sqs" {
   name                = "aeso-sns-sqs"
   schedule_expression = "rate(1 minute)"
   sqs_queue_names = [
-    "github"
+    "github",
+    "local"
   ]
   custom_role_policy_arns = [
     aws_iam_policy.lambda_logging.arn,
@@ -41,7 +42,8 @@ module "taipower_sns_sqs" {
     aws_iam_policy.lambda_logging.arn,
   ]
   sqs_queue_names = [
-    "github"
+    "github",
+    "local"
   ]
   providers = {
     aws = aws.hongkong
