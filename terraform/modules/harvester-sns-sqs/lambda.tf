@@ -5,19 +5,18 @@ data "archive_file" "this" {
 }
 
 resource "aws_lambda_function" "this" {
-  filename      = "../${var.name}.zip"
-  function_name = var.name
-  role          = module.iam.iam_role_arn
-  handler       = "${var.name}.handler"
-  timeout       = 30
-
+  filename         = data.archive_file.this.output_path
+  source_code_hash = data.archive_file.this.output_base64sha256
+  function_name    = var.name
+  role             = module.iam.iam_role_arn
+  handler          = "${var.name}.handler"
+  timeout          = 30
 
   environment {
     variables = {
       SNS_TOPIC = module.sns.topic_arn
     }
   }
-  source_code_hash = filebase64sha256("../${var.name}.rb")
 
   runtime = "ruby3.2"
 }
