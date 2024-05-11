@@ -1,4 +1,3 @@
-
 resource "github_actions_secret" "aws_id" {
   repository       = "intermittent-${var.name}"
   secret_name      = "AWS_ACCESS_KEY_ID"
@@ -9,6 +8,12 @@ resource "github_actions_secret" "aws_secret" {
   repository       = "intermittent-${var.name}"
   secret_name      = "AWS_SECRET_ACCESS_KEY"
   plaintext_value  = aws_iam_access_key.github.secret
+}
+
+resource "github_actions_secret" "queue_url" {
+  repository       = "intermittent-${var.name}"
+  secret_name      = "QUEUE_URL"
+  plaintext_value  = module.sqs["github"].queue_url
 }
 
 

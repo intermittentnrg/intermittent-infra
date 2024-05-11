@@ -1,7 +1,3 @@
-output "taipower_sqs_queue_url" {
-  value = module.sqs.queue_url
-}
-
 output "env" {
   value = {for s in local.envs :
     s => {
