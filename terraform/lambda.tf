@@ -22,6 +22,61 @@ module "aeso_sns_sqs" {
   github_token = var.github_token
 }
 
+module "cammesa_generacion_sns_sqs" {
+  source              = "./modules/harvester-sns-sqs"
+  name                = "cammesa-generacion-sns-sqs"
+  schedule_expression = "rate(5 minute)"
+  sqs_queue_names = [
+    "github",
+    "prod",
+    "local"
+  ]
+  custom_role_policy_arns = [
+    aws_iam_policy.lambda_logging.arn,
+  ]
+  github_token = var.github_token
+  providers = {
+    aws = aws.brazil
+  }
+}
+
+module "cammesa_demanda_sns_sqs" {
+  source              = "./modules/harvester-sns-sqs"
+  name                = "cammesa-demanda-sns-sqs"
+  schedule_expression = "rate(5 minute)"
+  sqs_queue_names = [
+    "github",
+    "prod",
+    "local"
+  ]
+  custom_role_policy_arns = [
+    aws_iam_policy.lambda_logging.arn,
+  ]
+  github_token = var.github_token
+  providers = {
+    aws = aws.brazil
+  }
+}
+
+module "cammesa_intercambio_sns_sqs" {
+  source              = "./modules/harvester-sns-sqs"
+  name                = "cammesa-intercambio-sns-sqs"
+  schedule_expression = "rate(5 minute)"
+  sqs_queue_names = [
+    "github",
+    "prod",
+    "local"
+  ]
+  custom_role_policy_arns = [
+    aws_iam_policy.lambda_logging.arn,
+  ]
+  github_token = var.github_token
+  providers = {
+    aws = aws.brazil
+  }
+}
+
+
 module "taipower" {
   source = "./modules/harvester"
   name = "taipower"
