@@ -54,19 +54,6 @@ module "taipower_sns_sqs" {
 }
 
 
-module "orn2" {
-  source = "./modules/harvester-s3"
-  name = "orn"
-  schedule_expression = "rate(1 minute)"
-  custom_role_policy_arns = [
-    aws_iam_policy.lambda_logging.arn,
-  ]
-  providers = {
-    aws = aws.brazil
-  }
-}
-
-
 module "ons_sns_sqs" {
   source = "./modules/harvester-sns-sqs"
   name = "ons-sns-sqs"
