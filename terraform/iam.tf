@@ -1,5 +1,5 @@
 locals {
-  envs = ["local","prod"]
+  envs = ["local"]
 }
 
 resource "aws_iam_user" "auth" {

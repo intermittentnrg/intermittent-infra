@@ -13,7 +13,7 @@ module "aeso_sns_sqs" {
   schedule_expression = "rate(1 minute)"
   sqs_queue_names = [
     "github",
-    "prod",
+    "cloud",
     "local"
   ]
   custom_role_policy_arns = [
@@ -44,7 +44,7 @@ module "taipower_sns_sqs" {
   ]
   sqs_queue_names = [
     "github",
-    "prod",
+    "cloud",
     "local"
   ]
   providers = {
@@ -63,7 +63,7 @@ module "ons_sns_sqs" {
   ]
   sqs_queue_names = [
     "github",
-    "prod",
+    "cloud",
     "local",
   ]
   providers = {

@@ -17,3 +17,11 @@ output  "secrets" {
   }
   sensitive = true
 }
+
+output "github" {
+  value = {
+    "AWS_ACCESS_KEY_ID" = aws_iam_access_key.github.id
+    "AWS_SECRET_ACCESS_KEY" = aws_iam_access_key.github.secret
+  }
+  sensitive = true
+}

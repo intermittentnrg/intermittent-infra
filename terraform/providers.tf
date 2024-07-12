@@ -15,8 +15,6 @@ provider "aws" {
     }
   }
 }
-
-
 provider "aws" {
   alias  = "hongkong"
   region = "ap-east-1"
@@ -26,7 +24,6 @@ provider "aws" {
     }
   }
 }
-
 provider "aws" {
   alias  = "brazil"
   region = "sa-east-1"
@@ -35,4 +32,8 @@ provider "aws" {
       Project = "intermittent-harvester"
     }
   }
+}
+
+provider "github" {
+  token = var.github_token
 }
