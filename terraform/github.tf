@@ -15,7 +15,8 @@ data "aws_iam_policy_document" "github" {
     ]
     resources = [
       module.ons_sns_sqs.queue_arn["cloud"],
-      module.taipower_sns_sqs.queue_arn["cloud"]
+      module.taipower_sns_sqs.queue_arn["cloud"],
+      module.aeso_sns_sqs.queue_arn["cloud"]
     ]
   }
 }
